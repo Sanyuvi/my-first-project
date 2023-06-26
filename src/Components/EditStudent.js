@@ -2,8 +2,14 @@ import { useEffect } from "react";
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import CrumBar from "./CrumBar";
 
-export default function EditStudent({ studentData, setData }) {
+export default function EditStudent({
+  studentData,
+  setData,
+  crumState,
+  setCrumState,
+}) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [idx, setIdx] = useState("");
@@ -16,9 +22,7 @@ export default function EditStudent({ studentData, setData }) {
   useEffect(() => {
     console.log(studentData);
     console.log("id : ", id);
-    const selectedStudent = studentData.find(
-      (stud, index) => stud.id === Number(id)
-    );
+    const selectedStudent = studentData.find((stud, index) => stud.id === +id);
     console.log(selectedStudent);
     setName(selectedStudent.name);
     setBatch(selectedStudent.batch);
@@ -36,7 +40,7 @@ export default function EditStudent({ studentData, setData }) {
       phone,
       qualification,
     };
-    const editIndex = studentData.findIndex((stud, index) => stud.id === id);
+    const editIndex = studentData.findIndex((stud, index) => stud.id === +id);
     console.log(editIndex);
     studentData[editIndex] = editStudentDataObject;
     setData([...studentData]);
@@ -45,6 +49,7 @@ export default function EditStudent({ studentData, setData }) {
 
   return (
     <Base>
+      <CrumBar crumState={crumState} setCrumState={setCrumState} />
       <div className="p-5">Please Fill the form to add new Student</div>
       <div className="form-control">
         <label className="input-group input-group-md m-2">

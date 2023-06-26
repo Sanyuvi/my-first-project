@@ -31,16 +31,16 @@ function App() {
       phone: 9596780831,
       qualification: "B.E",
     },
+  ];
+
+  const pages = [
     {
-      id: 3,
-      name: "Karmegam",
-      batch: "b47wd",
-      email: "abc@gmail.com",
-      phone: 9595770831,
-      qualification: "B.E",
+      name: "students",
+      path: "/student/all",
     },
   ];
   const [data, setData] = useState(studentData);
+  const [crumState, setCrumState] = useState(pages);
   return (
     <div className="App">
       <Routes>
@@ -55,12 +55,26 @@ function App() {
 
         <Route
           path="/student/all"
-          element={<StudentList studentData={data} setData={setData} />}
+          element={
+            <StudentList
+              crumState={crumState}
+              setCrumState={setCrumState}
+              studentData={data}
+              setData={setData}
+            />
+          }
         />
 
         <Route
           path="/edit/:id"
-          element={<EditStudent studentData={data} setData={setData} />}
+          element={
+            <EditStudent
+              studentData={data}
+              setData={setData}
+              crumState={crumState}
+              setCrumState={setCrumState}
+            />
+          }
         />
 
         <Route path="/interview/notes" element={<InterviewNotes />} />
